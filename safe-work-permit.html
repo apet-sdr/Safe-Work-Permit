@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Safe Work Permit</title>
+<style>
+:root{--bg:#eef1f4;--card:#fff;--ink:#1b2430;--mute:#5b6675;--line:#c9d0d8;--brown:#7a3b1e;--blue:#1f5f99;--accent:#1f5f99;--field:#f7f9fb;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12171d;--card:#1b222b;--ink:#e8edf2;--mute:#9aa6b4;--line:#34404d;--brown:#a8582f;--blue:#4a90d0;--accent:#4a90d0;--field:#141a21}}
+:root[data-theme="dark"]{--bg:#12171d;--card:#1b222b;--ink:#e8edf2;--mute:#9aa6b4;--line:#34404d;--brown:#a8582f;--blue:#4a90d0;--accent:#4a90d0;--field:#141a21}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.4 "Helvetica Neue",Arial,sans-serif;padding-bottom:84px}
+main{max-width:860px;margin:0 auto;padding:12px}
+section{background:var(--card);border:1px solid var(--line);border-radius:6px;margin-bottom:14px;overflow:hidden}
+h1,h2{margin:0;color:#fff;text-align:center;font-size:19px;padding:10px 12px;letter-spacing:.02em}
+h1{background:var(--brown);font-size:22px}
+h2{background:var(--blue)}
+h3{margin:14px 0 6px;font-size:15px;text-align:center}
+.note{font-size:13px;color:var(--mute);text-align:center;margin:8px 12px 0}
+.pad{padding:12px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.grid .full{grid-column:1/-1}
+label.f{display:block;font-size:13px;font-weight:600;color:var(--mute)}
+input[type=text],input[type=date],input[type=time],textarea{width:100%;font:inherit;font-size:16px;color:var(--ink);background:var(--field);border:1px solid var(--line);border-radius:4px;padding:8px;margin-top:3px}
+textarea{resize:vertical;min-height:44px}
+.row{display:flex;gap:6px;align-items:flex-end}
+.row>div{flex:1}
+button{font:inherit;font-weight:600;border:1px solid var(--line);background:var(--field);color:var(--ink);border-radius:4px;padding:8px 12px;cursor:pointer}
+button.p{background:var(--accent);border-color:var(--accent);color:#fff}
+button:disabled{opacity:.6;cursor:default}
+.chk{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.chk label{display:flex;gap:8px;align-items:center;font-size:15px;font-weight:600;min-height:40px}
+.chk input[type=checkbox]{width:22px;height:22px;flex:none;accent-color:var(--accent)}
+.chk input[type=text]{margin:0;padding:6px}
+table{width:100%;border-collapse:collapse}
+th{font-size:13px;text-align:left;padding:4px}
+td{padding:3px;vertical-align:top}
+td textarea{margin:0}
+.item{display:flex;gap:10px;justify-content:space-between;align-items:center;padding:9px 12px;border-top:1px solid var(--line);font-size:15px}
+.item .t{flex:1}
+.item input[type=text]{margin-top:4px}
+.yn{display:flex;gap:4px;flex:none}
+.yn label{position:relative}
+.yn input{position:absolute;opacity:0}
+.yn span{display:block;min-width:46px;text-align:center;padding:7px 4px;border:1px solid var(--line);border-radius:4px;font-size:13px;font-weight:600;background:var(--field)}
+.yn input:checked+span{background:var(--accent);border-color:var(--accent);color:#fff}
+.yn input:focus-visible+span{outline:2px solid var(--ink)}
+.sig{border-top:1px solid var(--line);padding:10px 12px}
+.sig .l{font-size:13px;font-weight:700;margin-bottom:4px}
+.sig canvas{width:100%;height:80px;background:var(--field);border:1px dashed var(--line);border-radius:4px;touch-action:none;display:block;margin-top:6px}
+.sig .clr{font-size:12px;padding:3px 8px;margin-top:4px}
+.warn{color:#b3261e;font-weight:700;text-align:center;padding:12px;font-size:14px}
+.conf{font-size:12px;font-style:italic;color:var(--mute);text-align:center;padding:8px}
+.bar{position:fixed;left:0;right:0;bottom:0;display:flex;gap:8px;justify-content:center;padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px));background:var(--card);border-top:1px solid var(--line);z-index:5}
+.bar button{flex:1;max-width:220px;padding:12px}
+@media (max-width:560px){.grid,.chk{grid-template-columns:1fr}.bar{gap:6px;padding-left:8px;padding-right:8px}.bar button{padding:12px 6px;font-size:14px}}
+@media print{
+ :root{--bg:#fff;--card:#fff;--ink:#000;--mute:#333;--line:#999;--field:#fff;--brown:#7a3b1e;--blue:#1f5f99}
+ *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ body{background:#fff;padding:0;font-size:11px}
+ main{max-width:none;padding:0}
+ .bar,.noprint{display:none!important}
+ section{border:none;margin:0 0 8px;break-inside:auto}
+ #sA{break-after:page}#sB{break-after:page}
+ input[type=text],input[type=date],input[type=time],textarea{border:none;border-bottom:1px solid #000;border-radius:0;background:#fff;padding:2px;font-size:11px}
+ .grid{grid-template-columns:repeat(3,1fr)}
+ .chk{grid-template-columns:repeat(4,1fr)}
+ .item{padding:4px 8px;break-inside:avoid}
+ .sig{break-inside:avoid}
+ .sig canvas{height:50px;border:none;border-bottom:1px solid #000}
+}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+<main id="app">
+<div id="sA">
+<section>
+ <h1>SAFE WORK PERMIT</h1>
+ <p class="note">This permit shall be completed for any non-routine work or off-site jobs. The supervisor or job leader must sign off on the permit to authorize work. This permit is valid for one work shift only.</p>
+ <div class="pad">
+  <div class="grid">
+   <div><label class="f">Supervisor name<input type="text" data-k="sup"></label></div>
+   <div><label class="f">Customer name &amp; location<input type="text" data-k="cust"></label></div>
+   <div class="row"><div><label class="f">Date<input type="date" id="date" data-k="date"></label></div></div>
+   <div class="row"><div><label class="f">Start time<input type="time" id="start" data-k="start"></label></div><button class="noprint" data-now="start" type="button">Now</button></div>
+   <div class="row"><div><label class="f">End time<input type="time" id="end" data-k="end"></label></div><button class="noprint" data-now="end" type="button">Now</button></div>
+   <div><label class="f">Job contact<input type="text" data-k="contact"></label></div>
+   <div class="full"><label class="f">Onsite crew members<input type="text" data-k="crew"></label></div>
+   <div class="full"><label class="f">Description of project/work/task (detail location type, working area &amp; work scope)<textarea data-k="desc" rows="3"></textarea></label></div>
+  </div>
+ </div>
+</section>
+<section>
+ <h2>JOB SCOPE</h2>
+ <div class="pad"><div class="chk" id="scope"></div></div>
+</section>
+<section>
+ <h2>RISK ASSESSMENT AND CONTROLS</h2>
+ <p class="note">Consult with HSE as necessary</p>
+ <div class="pad">
+  <table><thead><tr><th>Job/task</th><th>Hazards</th><th>Controls</th></tr></thead><tbody id="risk"></tbody></table>
+  <button class="noprint" id="addRow" type="button" style="margin-top:8px">Add row</button>
+ </div>
+</section>
+</div>
+<div id="sB">
+<section>
+ <h2>GENERAL PREPARATION REQUIREMENTS</h2>
+ <div id="prep"></div>
+</section>
+<section>
+ <h2>PERSONAL PROTECTIVE EQUIPMENT</h2>
+ <div class="pad"><div class="chk" id="ppe"></div>
+ <p class="note noprint">Check each item required for this job.</p></div>
+</section>
+</div>
+<section id="sC">
+ <h2>SAFE WORK PERMIT - AUTHORIZATION</h2>
+ <p class="note" style="color:var(--ink);font-weight:600">I verify that the location has been examined, the precautions marked on the checklist have been taken, and permission has been granted to complete this work.</p>
+ <div id="auth" style="margin-top:8px"></div>
+ <p class="warn">This permit must remain at the job site for the duration of the job. Permit shall be retained for a rolling 12 months at the Ferguson branch.</p>
+ <p class="conf">Confidential: Not for use or disclosure outside Ferguson or its subsidiaries, except under written agreement.</p>
+</section>
+</main>
+<div class="bar">
+ <button type="button" id="reset">New permit</button>
+ <button type="button" id="print">Print permit</button>
+ <button type="button" class="p" id="submit">Submit</button>
+</div>
+<script>
+(function(){
+var SCOPE=["Hot Work","Working at Heights","Electrical Work","Lockout/Tag out","Operating Machinery","Operating PITS","Overhead Lifting (Crane/Hoists)","Chemical Handling","Painting/Coating","Confined Space Entry","Line Break","Excavation Work"];
+var PREP=[["Notified customer contact person in charge of area","ini"],["All affected personnel advised of work hazards, precautions, and emergency procedures"],["Identified proper means of emergency alarm / Muster Point:","txt"],["Nearest Fire Extinguisher:","txt"],["Nearest Eyewash Station:","txt"],["All energy sources have been locked out/tagged out"],["All fall hazards have been protected or covered"],["A confined space hazard assessment has been obtained from HSE"],["If chemical hazards are present, conducted hazard communication review"],["All PPE referenced in the controls section is available in good working condition. Associates have been trained and qualified to use PPE"],["All associates are trained in proper procedures and equipment operation for work assignment"],["New hires have been assigned a buddy for the job duration"],["Proper tools are available to complete all job tasks"],["Equipment pre-use inspections completed"],["Safety start-up meeting held with Ferguson team to communicate hazards and controls"],["Work area inspected prior to beginning of work"],["Other:","txt"]];
+var PPE=[["Hi-Visibility Vest"],["Safety Glasses"],["Safety Shoe","t"],["Gloves","t"],["Face Shield"],["Hard Hat"],["Hearing Protection","t"],["Respirator","t"],["Welding Helmet"],["Welding/Burning Vest/Sleeves"],["Welding Sleeves"],["FR Clothing"],["Fall Protection"],["Chemical Protective Clothing","t"],["Safe Cutting Tools","t"],["LOTO Equipment"],["Portable Ventilation"],["Air Monitoring Equipment"],["Spark Proof Tools"],["Other","t"]];
+var AUTH=["Safe Work Permit Authorizer","Ferguson Associate","Ferguson Associate","Ferguson Associate","Hot Work Permit Authorizer (if applicable)","Hot Work Fire Watch(es)","Confined Space Permit Issuer (if applicable)","Confined Space Entrant & Attendant(s) (specify role)"];
+var KEY="swp-draft-v1",S={rows:5,v:{}};
+function $(i){return document.getElementById(i)}
+function load(){try{var r=localStorage.getItem(KEY);if(r)S=JSON.parse(r)}catch(e){}if(!S.v)S.v={};if(!S.rows)S.rows=5}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+var h="";
+SCOPE.forEach(function(t,i){h+='<label><input type="checkbox" data-k="sc'+i+'">'+(i+1)+'. '+t+'</label>'});
+for(var j=12;j<16;j++)h+='<label><span style="white-space:nowrap">'+(j+1)+'. Other:</span><input type="text" data-k="sc'+j+'t"></label>';
+$("scope").innerHTML=h;
+function rows(){var o="";for(var i=0;i<S.rows;i++)o+='<tr><td><textarea data-k="r'+i+'a"></textarea></td><td><textarea data-k="r'+i+'h"></textarea></td><td><textarea data-k="r'+i+'c"></textarea></td></tr>';$("risk").innerHTML=o}
+h="";
+PREP.forEach(function(p,i){h+='<div class="item"><div class="t">'+p[0]+(p[1]=="ini"?' <input type="text" data-k="p'+i+'x" placeholder="Initials" style="max-width:120px">':'')+(p[1]=="txt"?'<input type="text" data-k="p'+i+'x">':'')+'</div><div class="yn">';
+["Yes","No","NA"].forEach(function(v){h+='<label><input type="radio" name="p'+i+'" data-k="p'+i+v+'"><span>'+v+'</span></label>'});h+='</div></div>'});
+$("prep").innerHTML=h;
+h="";
+PPE.forEach(function(p,i){h+='<label><input type="checkbox" data-k="pe'+i+'">'+p[0]+(p[1]?' <input type="text" data-k="pe'+i+'t" placeholder="Type">':'')+'</label>'});
+$("ppe").innerHTML=h;
+h="";
+AUTH.forEach(function(a,i){h+='<div class="sig"><div class="l">Name (print) and signature of '+a+'</div><input type="text" data-k="an'+i+'" placeholder="Print name"><canvas data-s="s'+i+'" width="600" height="160"></canvas><button type="button" class="clr noprint" data-c="s'+i+'">Clear signature</button></div>'});
+$("auth").innerHTML=h;
+function pad(n){return n<10?"0"+n:""+n}
+function nowT(){var d=new Date();return pad(d.getHours())+":"+pad(d.getMinutes())}
+function today(){var d=new Date();return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())}
+function applyAll(){
+ rows();
+ document.querySelectorAll("[data-k]").forEach(function(e){var v=S.v[e.dataset.k];if(e.type=="checkbox"||e.type=="radio")e.checked=!!v;else if(v!=null)e.value=v});
+ if(!$("date").value)$("date").value=today();
+ if(!$("start").value)$("start").value=nowT();
+ S.v.date=$("date").value;S.v.start=$("start").value;
+ document.querySelectorAll("canvas[data-s]").forEach(function(c){var d=S.v[c.dataset.s];if(d){var im=new Image();im.onload=function(){c.getContext("2d").drawImage(im,0,0,c.width,c.height)};im.src=d}});
+ save();
+}
+document.addEventListener("input",function(ev){var e=ev.target;if(!e.dataset.k)return;S.v[e.dataset.k]=(e.type=="checkbox"||e.type=="radio")?e.checked:e.value;if(e.type=="radio"){["Yes","No","NA"].forEach(function(v){var k=e.dataset.k.replace(/(Yes|No|NA)$/,"")+v;if(k!=e.dataset.k)S.v[k]=false})}save()});
+document.addEventListener("click",function(ev){var e=ev.target;
+ if(e.dataset.now){var i=$(e.dataset.now);i.value=nowT();S.v[e.dataset.now]=i.value;save()}
+ if(e.dataset.c){var c=document.querySelector('canvas[data-s="'+e.dataset.c+'"]');c.getContext("2d").clearRect(0,0,c.width,c.height);delete S.v[e.dataset.c];save()}
+});
+$("addRow").onclick=function(){S.rows++;var keep=S.v;save();rows();document.querySelectorAll("#risk [data-k]").forEach(function(e){if(keep[e.dataset.k]!=null)e.value=keep[e.dataset.k]})};
+$("print").onclick=function(){window.print()};
+$("reset").onclick=function(){if(!confirm("Start a new permit? This clears everything on the form."))return;S={rows:5,v:{}};document.querySelectorAll("canvas[data-s]").forEach(function(c){c.getContext("2d").clearRect(0,0,c.width,c.height)});document.querySelectorAll("input[type=text],textarea").forEach(function(e){e.value=""});$("date").value="";$("start").value="";$("end").value="";applyAll();window.scrollTo(0,0)};
+document.querySelectorAll("canvas[data-s]").forEach(function(c){
+ var x=c.getContext("2d"),d=false;x.lineWidth=3;x.lineCap="round";x.strokeStyle="#111";
+ function pt(e){var r=c.getBoundingClientRect();return[(e.clientX-r.left)*c.width/r.width,(e.clientY-r.top)*c.height/r.height]}
+ c.addEventListener("pointerdown",function(e){d=true;c.setPointerCapture(e.pointerId);var p=pt(e);x.beginPath();x.moveTo(p[0],p[1]);x.lineTo(p[0]+.1,p[1]);x.stroke()});
+ c.addEventListener("pointermove",function(e){if(!d)return;var p=pt(e);x.lineTo(p[0],p[1]);x.stroke()});
+ function up(){if(!d)return;d=false;try{S.v[c.dataset.s]=c.toDataURL();save()}catch(e){}}
+ c.addEventListener("pointerup",up);c.addEventListener("pointercancel",up);
+});
+function makePdf(){
+ var app=$("app");
+ return html2canvas(app,{scale:2,backgroundColor:"#eef1f4",useCORS:true,windowWidth:860,onclone:function(d){
+  d.documentElement.setAttribute("data-theme","light");
+  d.querySelectorAll(".noprint").forEach(function(e){e.style.display="none"});
+ }}).then(function(cv){
+  var J=window.jspdf.jsPDF,pdf=new J({unit:"mm",format:"a4"}),pw=210,ph=297,per=Math.floor(cv.width*ph/pw),y=0,first=true;
+  while(y<cv.height){
+   var sh=Math.min(per,cv.height-y),t=document.createElement("canvas");
+   t.width=cv.width;t.height=sh;
+   var x=t.getContext("2d");x.fillStyle="#eef1f4";x.fillRect(0,0,t.width,t.height);
+   x.drawImage(cv,0,y,cv.width,sh,0,0,cv.width,sh);
+   if(!first)pdf.addPage();first=false;
+   pdf.addImage(t.toDataURL("image/jpeg",0.85),"JPEG",0,0,pw,sh*pw/cv.width);
+   y+=sh;
+  }
+  return pdf.output("blob");
+ });
+}
+$("submit").onclick=function(){
+ var b=$("submit"),v=S.v;
+ var name="Safe-Work-Permit-"+(v.date||today())+".pdf";
+ var subject="Safe Work Permit - "+(v.cust||"")+" - "+(v.date||today());
+ b.disabled=true;b.textContent="Preparing...";
+ makePdf().then(function(blob){
+  var f=new File([blob],name,{type:"application/pdf"});
+  if(navigator.canShare&&navigator.canShare({files:[f]})){
+   return navigator.share({files:[f],title:subject,text:subject}).then(function(){b.textContent="Sent"});
+  }
+  var u=URL.createObjectURL(blob),l=document.createElement("a");
+  l.href=u;l.download=name;document.body.appendChild(l);l.click();l.remove();
+  b.textContent="Downloaded";
+ }).catch(function(e){
+  if(e&&e.name==="AbortError"){b.textContent="Submit";return}
+  b.textContent="Failed";alert("Could not create the PDF.");
+ }).finally(function(){b.disabled=false;setTimeout(function(){b.textContent="Submit"},3000)});
+};
+load();applyAll();
+})();
+</script>
+</body>
+</html>
